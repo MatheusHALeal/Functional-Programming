@@ -1,17 +1,25 @@
 {-
 - Encontra o ultimo elemento de uma lista. Caso a lista seja vazia retorne o seguinte comando: error "Lista vazia!" 
 -}
-meuLast xs = undefined
+
+meuLast [] = error "Lista vazia!"
+meuLast (x:[]) = x
+meuLast xs = meuLast (tail xs)
 
 {-
 - Encontra o penultimo elemento de uma lista. Caso a lista seja vazia ou tenha apenas um elemento retorne o seguinte comando: error "Lista sem penultimo" 
 -}
-penultimo xs = undefined
+
+penultimo [] = error "Lista sem penultimo"
+penultimo (x:(xs:[])) = x
+penultimo xs = penultimo (tail xs)
 
 {-
 - Retorna o k-esimo (k varia de 1 ate N) elemento de uma lista. Ex: elementAt 2 [4,7,1,9] = 7
 -}
-elementAt i xs = undefined
+
+elementAt 0 (x:xs) = x
+elementAt i xs = elementAt (i-1) (tail xs)
 
 {-
 - Retorna o tamanho de uma lista. 
@@ -105,3 +113,9 @@ mean xs = undefined
 - Escreva a funcao myAppend que faz o append de uma lista xs com a lista ys, usando a função foldr. 
 -}
 myAppend xs ys = undefined
+
+
+main:: IO()
+main = do
+ let a = elementAt 3 [1,2,3,4,5]
+ print a
