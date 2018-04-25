@@ -24,23 +24,31 @@ elementAt i xs = elementAt (i-1) (tail xs)
 {-
 - Retorna o tamanho de uma lista. 
 -}
-meuLength xs = undefined
+
+meuLength [] = 0
+meuLength xs = 1 + meuLength (tail xs) 
 
 {-
 - Retorna o inverso de uma lista. 
 -}
-meuReverso xs = undefined
+
+meuReverso [] = []
+meuReverso xs = meuReverso (tail xs) ++ [(head xs)]
 
 {-
 - Diz se uma lista é palindrome. 
 -}
-isPalindrome xs = undefined
+isPalindrome xs = meuReverso xs == xs
 
 {-
 - Remove os elementos duplicados de uma lista. Ex: compress [2,5,8,2,1,8] = [2,5,8,1]
 - Voce pode usar a funcao elem de Haskell
 -}
-compress xs = undefined
+
+compress [] = []
+compress xs
+ |(head xs) `elem` (tail xs) = compress (tail xs)
+ |otherwise = [(head xs)] ++ compress (tail xs) 
 
 {-
 - Varre a lista da esquerda para a direita e junta os elementos iguais. Ex: compact [2,5,8,2,1,8] = [2,2,5,8,8,1]
@@ -114,8 +122,16 @@ mean xs = undefined
 -}
 myAppend xs ys = undefined
 
+penultimoA [] = print "fim"
+penultimoA (x:y) = do 
+					ala x
+					penultimoA y
+
+
+ala x =  print x
 
 main:: IO()
 main = do
- let a = elementAt 3 [1,2,3,4,5]
- print a
+ let a = compress [2,5,8,2,1,8]
+ penultimoA a
+ print "oi"
