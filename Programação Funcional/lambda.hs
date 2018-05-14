@@ -3,13 +3,23 @@ square = \x -> x*x
 
 --Implemente as funções anteriormente escritas usando expressões lambda
 --consulte suas implementacoes anteriores para a documentacao dessas funcoes
-pow x y = undefined
-fatorial x = undefined
-isPrime x = undefined
-fib x = undefined
+pow = \x y -> x**y
+
+fatorial = \n ->  foldr (*) 1 [1..n]
+
+isPrime = \x -> [a| a <- [2..x], x`mod`a == 0] == [x]
+
+fib = \x -> case x of 
+ 1 -> 1
+ 2 -> 1
+ x -> fib (x-1) + fib (x-2)
+
 mdc x y = undefined
+
 mmc x y = undefined
+
 coprimo x y = undefined
+
 goldbach x = undefined
 
 --Implemente as funções sobre listas escritas previsamente usando expressões lambda
@@ -33,6 +43,3 @@ buildPalindrome xs = undefined
 mean xs = undefined
 myAppend xs ys = undefined
 
-main:: IO()
-main = do
- print "oi"
