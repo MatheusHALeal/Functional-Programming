@@ -6,9 +6,12 @@
 
 
 
-xor a b = undefined
-impl a b = undefined
-equiv a b = undefined
+xor True False = True
+xor False True = True
+xor _ _ = False
+
+impl a b = (not a) || b
+equiv a b = (impl a b) && (impl b a)
 
 {-
 A funcao square esta implementada e eleva ao quadrado um determinado numero
@@ -19,7 +22,7 @@ square x = x*x
 - Implemente a funcao potencia, que retorna o resultado de x elevado a y 
 -}
 pow :: Int -> Int -> Int
-pow x 1 = x
+pow x 0 = 1
 pow x y = x * pow x (y-1)
 
 
@@ -29,7 +32,6 @@ pow x y = x * pow x (y-1)
 
 fatorial :: Int -> Int
 fatorial 0 = 1
-fatorial 1 = 1
 fatorial x = x * fatorial (x-1)
 
 {-
@@ -38,9 +40,7 @@ fatorial x = x * fatorial (x-1)
 -}
 
 isPrime :: Int -> Bool
-isPrime x = do
- let list = [a| a <- [2..x], x`mod`a == 0]
- (head list) == (last list)
+isPrime x = [x] == [a| a <- [2..x], x`mod`a == 0]
 
 
 {-
@@ -81,11 +81,4 @@ coprimo x y
 -}
 goldbach x = undefined
 
-
-main:: IO()
-main = do
- a <- getLine
- b <- getLine
- let result = coprimo (read a) (read b)
- print result
 
