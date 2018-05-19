@@ -62,6 +62,7 @@ sizeBST NIL = 0
 sizeBST (Node a left right) = 1 + sizeBST left + sizeBST right
 
 --verifica se uma BT é uma BST
+isBST
 isBST = undefined
 
 --insere uma nova chave na BST retornando a BST modificada

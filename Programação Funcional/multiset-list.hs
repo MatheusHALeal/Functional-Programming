@@ -1,4 +1,4 @@
-module MultisetList ()
+module MultisetList (insert, remove, search)
  where
 
 {- 
@@ -10,29 +10,46 @@ module MultisetList ()
  - cada elemento da lista consiste do dado em si e sua quantidade (um par). 
  - Eh recomendavel que voce consulte a documentacao de Data.List
  -}
-import Data.List as List
+import qualified Data.List as List
 
 {-
  - Insere um elemento na estrutura. Caso o elemento ja existe, sua quantidade na estrutura sera incrementada.
  -}
-insert elem bag = undefined
+insert elem ([]) = [(elem, 1)]
+insert elem ((x:xs)) 
+ | (fst x) == elem = [(fst x, (snd x) +1)] ++ xs 
+ |otherwise = [x] ++ (insert elem (xs))
+
 
 {-
 - Remove um elemento da estrutura, levando em consideracao a manipulacao de sua quantidade na estrutura. 
 - Caso a quantidade atinja 0 (ou menos), o elemento deve realmente ser removido da estrutura
 -}
-remove elem bag = undefined
-
+remove elem ((x:xs))
+ |(fst x) == elem =
+  if (snd x) == 1 then xs
+  else [(fst x, (snd x)-1)] ++ xs
+ |otherwise = [x] ++ (remove elem (xs))
+ 
 {-
  - Busca um elemento na estrutura retornando sua quantidade. Caso o elemento nao exista, retorna 0 como a quantidade.
 -}
-search elem bag = undefined
-
+search elem ([]) = 0
+search elem ((x:xs))
+ |(fst x) == elem = (snd x)
+ |otherwise = (search elem (xs))
+ 
 {-
  - Faz a uniao deste Bag com otherBag. A uniao consiste em ter os elementos dos dois Bags com suas maiores quantidades.
  - Por exemplo, A = {(a,1),(c,3)}, B = {(b,2),(c,1)}. A.union(B) deixa A = {(a,1),(c,3),(b,2)}
 -}
-union bag1 bag2 = undefined
+
+union  bagA ([]) = bagA
+union bagA ((y:ys))
+ |(search (fst y) bagA) > 0 = 
+  if (search (fst y) bagA) >= (snd y) then union bagA (ys)
+  else union (remove (fst y)  bagA) ((y:ys)) 
+ |otherwise = union (bagA ++ [y]) (ys)
 
 {-
  - Faz a intersecao deste Bag com otherBag. A intersecao consiste em ter os elementos que estao em ambos os bags com suas 
@@ -65,3 +82,4 @@ sum bag1 bag2 = undefined
  - Retorna a quantidade total de elementos no Bag
 -}
 size bag = undefined
+

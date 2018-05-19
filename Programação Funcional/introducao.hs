@@ -3,9 +3,6 @@
 - impl (implicacao A => B é equivalente a (not A or B)) e equiv (A <=> B é definido como A => B and B => A)
 - Procure usar casamento de padroes e reutilizar as funcoes.
 -}
-
-
-
 xor True False = True
 xor False True = True
 xor _ _ = False
