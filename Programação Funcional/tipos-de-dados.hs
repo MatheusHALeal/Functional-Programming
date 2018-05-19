@@ -3,9 +3,9 @@
 -- elementos de uma triple.
 data Triple a b c = Triple a b c deriving (Eq,Show)
 
-tripleFst (Tripe a b c) = a
-tripleSnd (Tripe a b c) = b
-tripleThr (Tripe a b c) = c
+tripleFst (Triple a b c) = a
+tripleSnd (Triple a b c) = b
+tripleThr (Triple a b c) = c
 
 --Escreva um tipo Quadruple que contem 4 elementos: dois de um mesmo tipo e outros dois de outro tipo
 --Escreva as funcoes frstTwo e secondTwo que retornam os dois primeiros e os dois ultimos, respectivamente
@@ -16,12 +16,25 @@ secondTwo (Quadruple a b c d) = (c, d)
 
 --Escreva um tipo de dados que pode conter um, dois, tres ou quatro elementos, dependendo do construtor
 --Implemente funções tuple1 até tuple4 que que retornam Just <valor> ou Nothing se o valor nao existe
-data Tuple a b c d = Tuple1 a | Tuple2 a b | Tuple3 a b c | Tuple4 a b c d
+data Tuple a b c d = Tuple1 a | Tuple2 a b | Tuple3 a b c | Tuple4 a b c d deriving (Eq, Show)
 
-tuple1 (Tuple a b c d ) = Just a | Nothing
-tuple2 (Tuple a b c d ) = Just (a, b)  
-tuple3 (Tuple a b c d ) = Just (a, b, c) 
-tuple4 = undefined 
+tuple1 (Tuple1 a) = Just a
+tuple1 (Tuple2 a b) = Just a
+tuple1 (Tuple3 a b c) = Just a
+tuple1 (Tuple4 a b c d) = Just a
+tuple1 _ = Nothing
+
+tuple2 (Tuple2 a b) = Just b
+tuple2 (Tuple3 a b c) = Just b
+tuple2 (Tuple4 a b c d) = Just b
+tuple2 _ = Nothing
+
+tuple3 (Tuple3 a b c) = Just c
+tuple3 (Tuple4 a b c d) = Just c
+tuple3 _ = Nothing
+
+tuple4 (Tuple4 a b c d) = Just d
+tuple4 _ = Nothing
 
 data List a = Nil | Cons a (List a) deriving (Eq,Show)
 
