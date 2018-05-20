@@ -56,7 +56,16 @@ union bagA ((y:ys))
  - menores quantidades. Por exemplo, Seja A = {(a,3),(b,1)} e B = {(a,1)}. Assim, A.intersection(B) deixa A = {(a,1)}
  - Caso senhum elemento de A esteja contido em B ent�o a intersecao deixa A vazio.
 -}
-intersection bag1 bag2 = undefined
+
+intersection ([]) _ = ([])
+intersection ((x:xs)) ([]) = ((x:xs))
+intersection ((x:xs)) ((y:ys))
+ |(search (fst y) ((y:ys))) > 0 && (search (fst y) ((x:xs))) > 0 =
+  if (search (fst y) ((x:xs))) > (search (fst y) ((y:ys))) then 
+   intersection ((List.delete ((fst x), (search (fst y) ((x:xs)))) ((x:xs))) ++ [y]) (ys)
+  else intersection (xs) (ys)
+ |otherwise = intersection (remove (fst x) ((x:xs))) (ys)
+ 
 
 {-
  - Faz a diferenca deste Bag com otherBag. A diferenca A \ B entre bags eh definida como segue:
